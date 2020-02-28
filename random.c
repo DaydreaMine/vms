@@ -30,9 +30,9 @@ int main()
     for (i = 0; i < 8; i++)
     {
         r = rand() % 8;
-        temp = arr[i];
-        arr[i] = arr[r];
-        arr[r] = temp;
+        temp=arr[i];
+        arr[i]=arr[r];
+        arr[r]=temp;
     }
 
     for (i = 1; i <= 8; i++)
