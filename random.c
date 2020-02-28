@@ -1,38 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-/*
-int main(){
-    time_t t;
-    time(&t);
-    srand(t);
-    int n=rand() %8;
-    printf("%d\n",n);
 
-    return 0;
+void swap(int *x,int *y)
+{
+    int temp = *x;
+    *x = *y;
+    *y = temp;
 }
-*/
 
 int main()
 {
     int arr[8];
     int i;
     int r;
-    int temp;
-    time_t t;
-    time(&t);
-    srand(t);
-
+    srand(time(NULL));
     for (i = 0; i < 8; i++)
     {
         arr[i] = i;
     }
     for (i = 0; i < 8; i++)
-    {
-        r = rand() % 8;
-        temp=arr[i];
-        arr[i]=arr[r];
-        arr[r]=temp;
+    {  r=rand()%8;
+       swap(&arr[r],&arr[i]);
     }
 
     for (i = 1; i <= 8; i++)
