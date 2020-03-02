@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #define LIST_SIZE 5
 #define VENDING_NUMBER_DEFAULT ' '
 #define VENDING_NUMBER_FAULT 'X'
@@ -119,7 +118,6 @@ void coin_choice()
         printf("Please choose invalid choice \n");
         break;
     }
-    main_menus();
 }
 
 void goods_choice()
@@ -141,19 +139,10 @@ void goods_choice()
         insert_coin_total -= vending_goods[choice3 - 1].price;
         choose_goods_name = vending_goods[choice3 - 1].id;
         printf("You have pressed button %c.\n", vending_goods[choice3 - 1].id);
-        main_menus();
     }
+}
 
-    void return_button();
-    {
-        printf("Press return button\n");
-        printf("¥%2d has been returned.\n", insert_coin_total);
-        insert_coin_total = 0;
-        main_menus();
-    }
-
-    void service_menu();
-    {
+void service_menu(){
         int secret;
         int choice9;
         printf("(9) Opening service menu. Access code is required.\n");
@@ -188,13 +177,14 @@ void goods_choice()
             }
         }
     }
-}
+
 int main()
 {
     int choice;
-    display();
+
     while (1)
     {
+        display();
         main_menus();
         printf("which is your choice:\n");
         scanf("%d", &choice);
@@ -208,15 +198,28 @@ int main()
             printf("(1) Read product information:\n");
             for (int i = 0; i < LIST_SIZE; i++)
             {
-                printf("%d %s($%c)\n", vending_goods[i].id, vending_goods[i].name, vending_goods[i].price);
+                printf("%c %s($%d)\n", vending_goods[i].id, vending_goods[i].name, vending_goods[i].price);
             }
+
+            break;
 
         case 2:
             coin_choice();
+            break;
+
         case 3:
             goods_choice();
+            break;
+
         case 4:
-            return_button();
+            printf("Press return button\n");
+            printf("¥%2d has been returned.\n", insert_coin_total);
+            insert_coin_total = 0;
+            main_menus();
+            break;
+        case 9:
+        service_menu();
+        break;
         }
     }
 }
