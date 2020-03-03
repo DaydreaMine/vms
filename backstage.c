@@ -1,7 +1,7 @@
 #include "customer.h"
 #include "backstage.h"
 
-#define PWD 1110
+#define PWD 1110 //密码
 
 void backstage()
 {
@@ -12,6 +12,7 @@ void backstage()
     printf("3. Refill product\n");
     printf("4. Change product\n");
     printf("0. Go back\n\n");
+    return;
 }
 
 void profit_menu()
@@ -21,7 +22,7 @@ void profit_menu()
     printf("Amount of inserted coins: ¥%d\n", insert_coin_total);
     for (int i = 0; i < LIST_SIZE; i++)
     {
-        printf("%c. %s (¥%d) (%d left)", vending_goods[i].id, vending_goods[i].name, vending_goods[i].price, vending_goods[i].number);
+        printf("%c. %s (¥%d) (%d left)\n", vending_goods[i].id, vending_goods[i].name, vending_goods[i].price, vending_goods[i].number);
     }
 }
 
@@ -49,14 +50,14 @@ void fuill_menu()
                 printf("%d. %c\n", i + 1, vending_goods[i].id);
             }
             printf("0.Go back\n");
-            printf("Your choice: \n");
-            scanf("%d", &choice4);
         }
-
+        printf("Your choice: \n");
+        scanf("%d", &choice4);
     } while (choice4 < 0 || choice4 >= LIST_SIZE);
     printf("You have refilled product %c to full.\n", vending_goods[choice4].id);
-    vending_goods[choice4].number = VENDING_GOODS_NUMBER;
+    vending_goods[choice4 - 1].number = VENDING_GOODS_NUMBER;
 }
+
 void change_menue()
 {
     int choice5 = 1;
@@ -109,6 +110,7 @@ void service_menu()
     int lock = 1;
     int secret;
     int choice9;
+
     printf("(9) Opening service menu. Access code is required.\n");
     printf("Enter access code:");
     scanf("%d", &secret);
@@ -118,35 +120,43 @@ void service_menu()
     }
     else
     {
-        backstage();
-        printf("Your choice:");
-        scanf("%d", &choice9);
         while (lock)
         {
-            switch (choice9)
+            int choice9;
+            display();
+            backstage();
+            do
             {
-            case 1:
-                profit_menu();
-                break;
+                printf("Your choice:");
+                scanf("%d", &choice9);
+                switch (choice9)
+                {
+                case 1:
+                    profit_menu();
+                    break;
 
-            case 2:
-                withdrawn_menu();
-                break;
+                case 2:
+                    withdrawn_menu();
+                    break;
 
-            case 3:
-                fuill_menu();
-                break;
+                case 3:
+                    fuill_menu();
+                    break;
 
-            case 4:
-                change_menue();
-                break;
-            case 0:
-                lock = 0;
-                break;
-            default:
-                printf("Please choose invalid choice \n");
-                break;
-            }
+                case 4:
+                    change_menue();
+                    break;
+
+                case 0:
+                    lock = 0;
+                    break;
+
+                default:
+                    printf("Please choose invalid choice \n");
+                    break;
+                }
+
+            } while (choice9 < 0 || choice9 > 5);
         }
     }
 }

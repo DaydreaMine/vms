@@ -23,8 +23,7 @@ Goods vending_goods[LIST_SIZE];//商品数组
 
 int insert_coin_total;//投入钱币的数量
 char choose_goods_name ;//商品出货的显示
-int numb1;//后台收入金额
-
+int numb1;  //后台收入金额
 
 void display();//主界面
 
